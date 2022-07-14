@@ -71,7 +71,7 @@ router.post("/verify", async (req, res, next) => {
     const data = {
       to: email,
       subject: "Подтверждение email",
-      html: `<a target="_blank" href="http://localhost:3000/verify/${verificationToken}">Email confirmation</a>`,
+      html: `<a target="_blank" href="${SITE_NAME}/verify/${verificationToken}">Email confirmation</a>`,
     };
 
     await sendEmail(data);
