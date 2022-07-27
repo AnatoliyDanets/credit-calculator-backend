@@ -47,6 +47,7 @@ const cors = require("cors");
 const authRouters = require("./routes/api/auth");
 const usersRouter = require("./routes/api/users");
 const banksRouters = require("./routes/api/banks");
+const commentsRouter=require("./routes/api/comments")
 const appServer = express();
 const formatsLogger = appServer.get("env") === "development" ? "dev" : "short";
 
@@ -57,6 +58,7 @@ appServer.use(express.static("public"))
 appServer.use("/api/auth", authRouters);
 appServer.use("/api/users", usersRouter);
 appServer.use("/api/banks", banksRouters);
+appServer.use("/api/comments", commentsRouter)
 appServer.use((req, res) => {
   res.status(404).json({ message: "Not found" });
 });

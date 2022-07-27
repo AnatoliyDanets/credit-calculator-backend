@@ -1,3 +1,4 @@
 const { Bank, joiSchema } = require("./bank");
 const { User } = require("./user");
-module.exports = { Bank, User, joiSchema };
+const {Comment} =require("./comment");
+module.exports = { Bank, User, Comment, joiSchema };
