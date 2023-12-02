@@ -42,12 +42,16 @@
 // mongoDb base banking- password:mongodb3108 login:owsdoc
 
 const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+dotenv.config();
+const { DB_HOST, PORT = 3000 } = process.env;
 const logger = require("morgan");
 const cors = require("cors");
 const authRouters = require("./routes/api/auth");
 const usersRouter = require("./routes/api/users");
 const banksRouters = require("./routes/api/banks");
-const commentsRouter=require("./routes/api/comments")
+const commentsRouter = require("./routes/api/comments")
 const appServer = express();
 const formatsLogger = appServer.get("env") === "development" ? "dev" : "short";
 
@@ -67,5 +71,19 @@ appServer.use((err, req, res, next) => {
   const { status = 500, message = "Server Error" } = err;
   res.status(status).json({ message });
 });
+
+
+mongoose
+  .connect(DB_HOST)
+  .then(() => {
+    appServer.listen(PORT, () => {
+      console.log(`Database connection successful`);
+    });
+  })
+  .catch((err) => {
+    console.log(`Server not run. Error: ${err.message}`);
+    process.exit(1);
+  });
+
 
 module.exports = appServer;
